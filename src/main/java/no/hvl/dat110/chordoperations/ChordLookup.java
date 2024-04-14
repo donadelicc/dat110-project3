@@ -62,9 +62,9 @@ public class ChordLookup {
 		List<NodeInterface> fTable = this.node.getFingerTable();
 		// starting from the last entry, iterate over the finger table
 		for(int i = fTable.size() - 1; i >= 0; i--) {
-
+			//
 			// for each finger, obtain a stub from the registry
-			NodeInterface finger = fTable.get(i);
+			NodeInterface finger = fTable.get(i); //-->
 			// check that finger is a member of the set {nodeID+1,...,ID-1} i.e. (nodeID+1 <= finger <= key-1) using the ComputeLogic
 			boolean isSet = checkInterval(finger.getNodeID(), this.node.getNodeID().add(BigInteger.ONE), ID.subtract(BigInteger.ONE));
 			// if logic returns true, then return the finger (means finger is the closest to key)
