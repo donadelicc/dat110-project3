@@ -16,42 +16,36 @@ import java.security.NoSuchAlgorithmException;
 public class Hash { 
 	
 	
-	public static BigInteger hashOf(String entity) {	
-		
+	public static BigInteger hashOf(String inputString) {
 
-		BigInteger hashInt;
-		// Task: Hash a given string using MD5 and return the result as a BigInteger.
+        BigInteger hashResult;
 
-		// we use MD5 with 128 bits digest
+        try {
+            //MD5 hashing algorithm
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
 
-		// compute the hash of the input 'entity'
-		
-		// convert the hash into hex format
+            // upate the digest using the bytes of the str
+            messageDigest.update(inputString.getBytes());
 
-		// convert the hex into BigInteger
-		
-		// return the BigInteger
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
+            // hash computation
+            byte[] digestBytes = messageDigest.digest();
 
-			md.update(entity.getBytes());
+            // byte arr to a hex str
+            String hexString = toHex(digestBytes);
 
-			byte[] bytes = md.digest();
+            // Convert the hex str to a "BigInteger"
+            hashResult = new BigInteger(hexString, 16);
 
-			String generatedValue = toHex(bytes);
+        } catch (NoSuchAlgorithmException e) {
+            // Throw an unchecked exception if the algorithm does not exist
+            throw new RuntimeException(e);
+        }
 
-			hashInt = new BigInteger(generatedValue,16);
-
-		}catch (NoSuchAlgorithmException e){
-			throw new RuntimeException(e);
-		}
-		
-		return hashInt;
-	}
+        return hashResult;
+    }
 	
 	public static BigInteger addressSize() {
 		
-		// Task: compute the address size of MD5
 		
 		// compute the number of bits = bitSize()
 		return new BigInteger("2").pow(128);
@@ -69,6 +63,7 @@ public class Hash {
 	public static String toHex(byte[] digest) {
 		StringBuilder strbuilder = new StringBuilder();
 		for(byte b : digest) {
+			// Append each byte as a hex str
 			strbuilder.append(String.format("%02x", b&0xff));
 		}
 		return strbuilder.toString();
