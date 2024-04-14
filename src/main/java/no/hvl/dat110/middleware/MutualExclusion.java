@@ -127,6 +127,7 @@ public class MutualExclusion {
 			if(CS_BUSY == false && WANTS_TO_ENTER_CS == false){
 				caseid = 0;
 			}
+			///
 		
 			// caseid=1: Receiver already has access to the resource (dont reply but queue the request)
 			if(CS_BUSY == true){
