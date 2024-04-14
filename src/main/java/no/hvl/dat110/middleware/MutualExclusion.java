@@ -105,9 +105,7 @@ public class MutualExclusion {
 				e.printStackTrace();
 			}
 		});
-		// obtain a stub for each node from the registry
 		
-		// call onMutexRequestReceived()
 		
 	}
 	
